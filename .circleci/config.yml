@@ -1,0 +1,29 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/TeachstoneLLC/myteachstone
+    parallelism: 5
+    shell: /bin/bash --login
+    environment:
+    - CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+    - CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+    - API_SYNC_TOKEN: testing
+    - MY_CLASS_BASE_URL: https://int.teachstone.com
+    - LOCALEAPP_API: testing
+    docker:
+    - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
+      command: /sbin/init
+    - image: redis
+    steps:
+    - checkout
+    - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
+    - run:
+        working_directory: ~/TeachstoneLLC/myteachstone
+        command: 'sudo service elasticsearch status || sudo service elasticsearch
+          start; '
+    - run: sudo apt-get update; sudo apt-get install libicu52
+workflows:
+  version: 2
+  workflow:
+    jobs:
+    - build
