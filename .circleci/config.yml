@@ -30,7 +30,6 @@ jobs:
             echo 'Asia/Tokyo' | sudo tee -a /etc/timezone
             sudo cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
             sudo dpkg-reconfigure -f noninteractive tzdata
-    - run: sudo apt-get update;
 # workflows:
 #   version: 2
 #   workflow:
