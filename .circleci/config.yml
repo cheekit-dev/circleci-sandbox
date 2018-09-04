@@ -21,7 +21,7 @@ jobs:
         working_directory: ~/TeachstoneLLC/myteachstone
         command: 'sudo service elasticsearch status || sudo service elasticsearch
           start; '
-    - run: sudo apt-get update; sudo apt-get install libicu52
+    - run: sudo apt-get update; 
 workflows:
   version: 2
   workflow:
