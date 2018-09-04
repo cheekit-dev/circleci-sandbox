@@ -13,17 +13,26 @@ jobs:
     docker:
     - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
       command: /sbin/init
+      environment:
+        TZ: "/usr/share/zoneinfo/Asia/Tokyo"
+        LANG: "en_US.utf8"
+        LC_ALL: "en_US.utf8"
+        LC_CTYPE: "en_US.utf8"
     - image: redis
     steps:
     - checkout
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
     - run:
-        working_directory: ~/TeachstoneLLC/myteachstone
-        command: 'sudo service elasticsearch status || sudo service elasticsearch
-          start; '
-    - run: sudo apt-get update; 
-workflows:
-  version: 2
-  workflow:
-    jobs:
-    - build
+        name: Set timezone to Asia/Tokyo
+        working_directory: ~/workcloud/workcloud
+        command: |
+            set +e
+            echo 'Asia/Tokyo' | sudo tee -a /etc/timezone
+            sudo cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+            sudo dpkg-reconfigure -f noninteractive tzdata
+    - run: sudo apt-get update;
+# workflows:
+#   version: 2
+#   workflow:
+#     jobs:
+#     - build
