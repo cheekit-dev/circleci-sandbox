@@ -5,24 +5,9 @@ jobs:
       - image: meetfrank/circleci-node-awsebcli
     steps:
       - checkout
-
-  build-another:
-    docker:
-      - image: meetfrank/circleci-node-awsebcli
-    steps:
-      - checkout
-      - persist_to_workspace:
-          root: .
-          paths:
+      - run: sleep 300
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
-      - approve:
-          type: approval
-          requires:
-            - build
-      - build-another:
-          requires:
-            - approve
