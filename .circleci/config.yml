@@ -1,28 +1,28 @@
 version: 2
-jobs:
-  build:
-    docker:
-      - image: meetfrank/circleci-node-awsebcli
-    steps:
-      - checkout
+default: &default
+  docker:
+    - image: circleci/node10.7
 
-  build-another:
-    docker:
-      - image: meetfrank/circleci-node-awsebcli
+base_network_configuration: &base_network_configuration
+  run:
+    name: Setup Base Network Configuration
+    command: |
+      echo '10.101.7.80 panwgithub.paloaltonetworks.local' >> /etc/hosts
+      mkdir -p /root/.ssh/ && echo 'panwgithub.paloaltonetworks.local ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBKgMRoRFx0SyXC1k2YeW3zKpNGMkXqUr+GKNAcXE9OHFzv8lXAuzlp0sy+uFX0g4rsyFB72KCsL62P3U7/bYBm4=' >> ~/.ssh/known_hosts
+      mkdir -p ~/.ssh
+      cat >> ~/.ssh/config <<SSH
+      Host panwgithub.paloaltonetworks.local
+          StrictHostKeyChecking no
+      SSH
+jobs:
+  test:
+    <<: *default
     steps:
+      -  <<: *base_network_configuration
       - checkout
-      - persist_to_workspace:
-          root: .
-          paths:
 workflows:
   version: 2
-  build_and_test:
+  default:
     jobs:
-      - build
-      - approve:
-          type: approval
-          requires:
-            - build
-      - build-another:
-          requires:
-            - approve
+      - test:
+          context: iris-dev
