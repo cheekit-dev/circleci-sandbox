@@ -8,6 +8,6 @@ jobs:
       - run: sleep 300
 workflows:
   version: 2
-  build_and_test:
+  default:
     jobs:
       - build
