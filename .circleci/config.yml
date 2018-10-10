@@ -17,6 +17,7 @@ jobs:
       - run: sudo cp circle.conf /etc/apache2/sites-available/001-default.conf
       - run: sudo ln -s /etc/apache2/sites-available/001-default.conf /etc/apache2/sites-enabled/
       - run: sudo a2enmod rewrite
+      - run: sudo mkdir /run/lock
       - run: sudo service apache2 restart
       - run: curl ff-plus.local
 
