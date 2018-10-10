@@ -2,7 +2,8 @@ version: 2
 default: &default
   working_directory: ~/ff-plus
   docker:
-    - image: circleci/php:5.6.38-apache-jessie-node-browsers-legacy
+    # - image: circleci/php:5.6.38-apache-jessie-node-browsers-legacy
+    - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
 jobs:
   build:
     <<: *default
