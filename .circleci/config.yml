@@ -13,11 +13,10 @@ jobs:
           command: |-
             echo 127.0.0.1 ff-plus.local | sudo tee -a /etc/hosts
       - run: cat /etc/hosts
-      - run: pwd
-      # - run: sudo cp circle.conf /etc/apache2/sites-available/default.conf
-      # - run: sudo a2enmod rewrite
-      # - run: sudo service apache2 restart
-      # - run: curl ff-plus.local
+      - run: sudo cp circle.conf /etc/apache2/sites-available/default.conf
+      - run: sudo a2enmod rewrite
+      - run: sudo service apache2 restart
+      - run: curl ff-plus.local
 
 workflows:
   version: 2
