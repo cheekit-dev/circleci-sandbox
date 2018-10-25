@@ -10,4 +10,8 @@ workflows:
   version: 2
   default:
     jobs:
+<<<<<<< HEAD
       - build
+=======
+      - test:
+>>>>>>> worng configuration
