@@ -4,8 +4,15 @@ jobs:
     docker:
       - image: meetfrank/circleci-node-awsebcli
     steps:
+<<<<<<< HEAD
       - checkout
       - run: sleep 300
+=======
+    - checkout
+    - run:
+        name: Run Tests
+        command: echo success
+>>>>>>> fix test
 workflows:
   version: 2
   workflow:
