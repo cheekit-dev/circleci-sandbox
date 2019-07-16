@@ -1,31 +1,17 @@
-
 version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6.1
-
-    working_directory: ~/repo
-
+      - image: circleci/node:latest
     steps:
       - checkout
       - run:
-          name: Spell check
           command: |
-            echo test
+            echo $HELLO
 
 workflows:
   version: 2
-  commit:
+  workflow:
     jobs:
-      - build
-  nightly:
-    triggers:
-      - schedule:
-          cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-       - build
+      - build:
+          context: cheekit-dev-public
