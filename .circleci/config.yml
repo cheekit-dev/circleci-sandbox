@@ -21,7 +21,5 @@ workflows:
   version: 2
   workflow:
     jobs:
-      - build:
-          context: cheekit-dev-public
-      - test:
-          context: cheekit-dev-public
+      - build
+      - test
