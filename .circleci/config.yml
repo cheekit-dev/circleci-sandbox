@@ -1,27 +1,21 @@
 version: 2
-default: &default
-  working_directory: ~/ff-plus
-  docker:
-    - image: circleci/php:5.6.38-apache-jessie-node-browsers-legacy
 jobs:
   build:
-    <<: *default
+    docker:
+      - image: circleci/php:7.2
     steps:
       - checkout
-      - run:
-          name: change hosts
-          command: |-
-            echo 127.0.0.1 ff-plus.local | sudo tee -a /etc/hosts
-      - run: cat /etc/hosts
-      - run: sudo cp circle.conf /etc/apache2/sites-available/001-default.conf
-      - run: sudo ln -s /etc/apache2/sites-available/001-default.conf /etc/apache2/sites-enabled/
-      - run: sudo a2enmod rewrite
-      - run: sudo mkdir /run/lock
-      - run: sudo service apache2 restart
-      - run: curl ff-plus.local
+      - run: php -v
+  build-old:
+    docker:
+      - image: circleci/php@sha256:40f8b9fd32720cfb4b30d1555b873bbd0d302b07f845a17c38eea2219e7b7b48
+    steps:
+      - checkout
+      - run: php -v
 
 workflows:
   version: 2
   default:
     jobs:
       - build
+      - build-old
