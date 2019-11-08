@@ -6,16 +6,9 @@ jobs:
     steps:
       - checkout
       - run: php -v
-  build-old:
-    docker:
-      - image: circleci/php@sha256:40f8b9fd32720cfb4b30d1555b873bbd0d302b07f845a17c38eea2219e7b7b48
-    steps:
-      - checkout
-      - run: php -v
 
 workflows:
   version: 2
   default:
     jobs:
       - build
-      - build-old
