@@ -6,9 +6,11 @@ jobs:
     steps:
       - checkout
       - run: php -v
+      - run: echo $TEST
 
 workflows:
   version: 2
-  default:
+  workflow:
     jobs:
-      - build
+      - build:
+         context: rename-test
